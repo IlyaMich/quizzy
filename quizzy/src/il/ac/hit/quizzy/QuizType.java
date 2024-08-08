@@ -1,4 +1,8 @@
 package il.ac.hit.quizzy;
 
-public class QuizType {
+/**
+ * The QuizType enum represents the different types of quizzes.
+ */
+public enum QuizType {
+    TERMINAL, GUI
 }
