@@ -11,6 +11,10 @@ public class QuizFactory {
      * @return the created IQuiz instance
      */
     public IQuiz createQuiz(QuizType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Quiz type cannot be null");
+        }
+
         switch (type) {
             case TERMINAL:
                 return new TerminalQuiz();
