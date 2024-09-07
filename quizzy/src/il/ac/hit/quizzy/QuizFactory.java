@@ -15,13 +15,10 @@ public class QuizFactory {
             throw new IllegalArgumentException("Quiz type cannot be null");
         }
 
-        switch (type) {
-            case TERMINAL:
-                return new TerminalQuiz();
-            case GUI:
-                return new GUIQuiz();
-            default:
-                throw new IllegalArgumentException("Invalid quiz type");
-        }
+        return switch (type) {
+            case TERMINAL -> new TerminalQuiz();
+            case GUI -> new GUIQuiz();
+            default -> throw new IllegalArgumentException("Invalid quiz type");
+        };
     }
 }
