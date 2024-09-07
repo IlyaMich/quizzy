@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) throws QuizException{
         //creating question
         QuizFactory factory = new QuizFactory();
-        IQuiz quiz = factory.createQuiz(QuizType.GUI);
+        IQuiz quiz = factory.createQuiz(QuizType.TERMINAL);
         quiz.setName("Quiz Demo");
         //creating 1st question
         IQuizQuestionBuilder builder1 = new QuizQuestion.Builder();
