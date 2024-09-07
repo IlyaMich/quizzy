@@ -2,6 +2,10 @@ package il.ac.hit.quizzy;
 
 import org.junit.jupiter.api.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TerminalQuizTest {
@@ -19,6 +23,18 @@ public class TerminalQuizTest {
                 .addAnswer("No", false)
                 .create();
         quiz.addQuestion(question);
+
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @AfterEach
+    void restoreStreams() {
+        System.setOut(originalOut);
+    }
+
+    @Test
+    void testGetName() {
+        assertEquals("Test Quiz", quiz.getName());
     }
 
     @Test
@@ -34,6 +50,19 @@ public class TerminalQuizTest {
     void testEmptyQuiz() {
         IQuiz emptyQuiz = new TerminalQuiz();
         assertTrue(emptyQuiz.getQuestions().isEmpty());
+    }
+
+    @Test
+    void testAddQuestion() {
+        IQuizQuestion question = new QuizQuestion.Builder()
+                .setTitle("Test")
+                .setQuestion("Q1")
+                .addAnswer("A1", true)
+                .addAnswer("A2", false)
+                .create();
+        quiz.addQuestion(question);
+
+        assertEquals(2, quiz.getQuestions().size());
     }
 
     @Test
