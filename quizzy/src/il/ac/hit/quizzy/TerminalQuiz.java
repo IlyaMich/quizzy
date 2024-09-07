@@ -18,17 +18,54 @@ public class TerminalQuiz implements IQuiz {
     public void start() {
         Scanner scanner = new Scanner(System.in);
         int score = 0;
-        for (IQuizQuestion question : questions) {
-            System.out.println(question.getQuestion());
-            for (int i = 0; i < question.getAnswers().size(); i++) {
-                System.out.println((i + 1) + ". " + question.getAnswers().get(i));
+
+        System.out.println("Welcome to the quiz: " + name);
+
+        for (int i = 0; i < questions.size(); i++) {
+            IQuizQuestion question = questions.get(i);
+            System.out.println("\nQuestion " + (i + 1) + ": " + question.getQuestion());
+
+            List<String> answers = question.getAnswers();
+            for (int j = 0; j < answers.size(); j++) {
+                System.out.println((j + 1) + ". " + answers.get(j));
             }
-            int userAnswer = scanner.nextInt();
+
+            int userAnswer = getUserAnswer(scanner, answers.size());
+
             if (question.getCorrectAnswers().get(userAnswer - 1)) {
+                System.out.println("Correct!");
                 score++;
+            } else {
+                System.out.println("Incorrect.");
             }
         }
-        System.out.println("Final score: " + score + "/" + questions.size());
+
+        System.out.println("\nQuiz completed! Final score: " + score + "/" + questions.size());
+    }
+
+    /**
+     * Gets a valid user answer from the console.
+     *
+     * @param scanner    the Scanner object to read user input
+     * @param maxAnswers the maximum number of answers
+     * @return the user's valid answer as an integer
+     */
+    private int getUserAnswer(Scanner scanner, int maxAnswers) {
+        while (true) {
+            System.out.print("Enter your answer (1-" + maxAnswers + "): ");
+            String input = scanner.nextLine().trim();
+
+            try {
+                int answer = Integer.parseInt(input);
+                if (answer >= 1 && answer <= maxAnswers) {
+                    return answer;
+                } else {
+                    System.out.println("Invalid input. Please enter a number between 1 and " + maxAnswers + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric value.");
+            }
+        }
     }
 
     /**
