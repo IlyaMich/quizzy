@@ -23,13 +23,6 @@ public class TerminalQuizTest {
                 .addAnswer("No", false)
                 .create();
         quiz.addQuestion(question);
-
-        System.setOut(new PrintStream(outContent));
-    }
-
-    @AfterEach
-    void restoreStreams() {
-        System.setOut(originalOut);
     }
 
     @Test
